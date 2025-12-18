@@ -1,0 +1,57 @@
+# SpotiSync Configuration
+# Run 'spotisync init' to create this file interactively
+
+spotify:
+  client_id: <spotify_app_client_id>
+  client_secret: <spotify_app_client_secret>
+  redirect_uri: https://example.com/callback
+  scopes:
+    - user-library-read
+    - playlist-read-private
+    - playlist-modify-public
+    - playlist-modify-private
+
+# Root-level filters (defaults for all playlist syncs)
+filters:
+  skip_podcasts: true
+  include:
+    artists: []    # Artist IDs or regex patterns (allowlist, applied before exclude)
+  exclude:
+    artists: []    # Artist IDs or regex patterns
+    albums: []     # Album IDs or regex patterns
+    tracks: []     # Track name regex patterns
+
+# Root-level cron (default schedule for all syncs)
+cron:
+  enabled: true
+  schedule: '*/10 * * * *'
+
+# Sync group configurations
+sync_groups:
+  # Example: Sync liked tracks to a playlist
+  - name: liked-to-playlist
+    source: liked_tracks
+    target: <target_playlist_id>
+    # disabled: false              # Set to true to skip this sync group
+
+  # Example: Sync only specific artist to a playlist
+  # - name: my-radiohead
+  #   source: liked_tracks
+  #   target: <radiohead_playlist_id>
+  #   filters:
+  #     include:
+  #       artists: ["4Z8W4fKeB5YxbusRsdQVPb"]  # Radiohead's Spotify ID
+
+  # Example: Mirror one playlist to another
+  # - name: playlist-mirror
+  #   source: <source_playlist_id>
+  #   target: <target_playlist_id>
+  #   # Optional: override root filters for this sync group
+  #   filters:
+  #     skip_podcasts: false
+
+  # Example: Archive/backup liked tracks (never remove from target)
+  # - name: liked-tracks-archive
+  #   source: liked_tracks
+  #   target: <archive_playlist_id>
+  #   skip_removals: true          # Tracks removed from source stay in target

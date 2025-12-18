@@ -1,0 +1,70 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-*
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+
+# Type checking and linting
+.mypy_cache/
+.ruff_cache/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Poetry
+poetry.lock.orig
+
+# Exports directory contents (keep directory)
+exports/*
+!exports/.gitkeep
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+tokens.json
+
+# User config (keep example)
+config.yaml
+!config.example.yaml

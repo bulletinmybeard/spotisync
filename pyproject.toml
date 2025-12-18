@@ -1,0 +1,132 @@
+[tool.poetry]
+name = "spotisync"
+version = "0.1.0"
+description = "SpotiSync - Smart syncing for Spotify playlists"
+authors = ["Robin Schulz <bulletinmybeard@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/bulletinmybeard/spotisync"
+repository = "https://github.com/bulletinmybeard/spotisync"
+documentation = "https://github.com/bulletinmybeard/spotisync#readme"
+keywords = ["spotisync", "spotify", "playlist-sync", "music", "automation", "cli", "liked-songs", "playlist-manager"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Framework :: Pydantic :: 2",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+packages = [{include = "src"}]
+include = [
+    {path = "config.example.yaml", format = ["sdist", "wheel"]},
+    {path = "src/py.typed", format = ["sdist", "wheel"]}
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+spotipy = "^2.24.0"
+PyYAML = "^6.0.3"
+click = "^8.3.0"
+pydantic = "^2.12.4"
+pydantic-settings = "^2.12.0"
+APScheduler = "^3.11.1"
+chalkbox = "^2.3.5"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.14.1"
+mypy = "^1.18.2"
+types-pyyaml = "^6.0.12"
+pytest = "^8.3.0"
+pytest-cov = "^6.0.0"
+mdformat = "^1.0.0"
+
+[tool.poetry.scripts]
+spotisync = "src.cli.cli:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "build",
+    "dist",
+    "__pycache__",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "RUF", # Ruff-specific rules
+    "S",   # flake8-bandit (security)
+]
+ignore = [
+    "E501", # Line too long (handled by formatter)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["S603", "S607"] # Allow subprocess in scripts
+"tests/*" = [
+    "S101",
+    "S105",
+    "S106",
+    "S603",
+    "S607",
+] # Allow assert, hardcoded passwords, and subprocess in tests
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+known-first-party = ["src", "config"]
+known-third-party = ["spotipy", "click", "pydantic"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = false
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = ["spotipy.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=src --cov-report=term-missing"

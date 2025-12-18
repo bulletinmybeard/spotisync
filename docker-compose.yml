@@ -1,0 +1,24 @@
+services:
+  spotisync:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spotisync
+    volumes:
+      # Mount config file
+      - ./config.yaml:/app/config.yaml:delegated
+      # Mount source code for development
+      - ./src:/app/src:delegated
+      # Mount tokens file
+      - ./tokens.json:/app/tokens.json:delegated
+    environment:
+      - IN_DOCKER=1
+      - FORCE_COLOR=1
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "spotisync", "status"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
