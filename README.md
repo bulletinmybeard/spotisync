@@ -133,7 +133,7 @@ Exit codes: `0` on success, `1` on error.
 
 ## Configuration
 
-SpotiSync uses a `config.yaml` file. The setup wizard creates this for you, or see [`config.example.yaml`](config.example.yaml) for all options.
+SpotiSync uses a `config.yaml` file. The setup wizard creates this for you, or see [`config.example.yaml`](https://github.com/bulletinmybeard/spotisync/blob/master/config.example.yaml) for all options.
 
 **Multiple sync groups** - Sync different sources to different targets:
 
@@ -410,9 +410,9 @@ Reload: `. $PROFILE`
 
 ## Links
 
-- [Configuration Example](config.example.yaml)
-- [Changelog](CHANGELOG.md)
+- [Configuration Example](https://github.com/bulletinmybeard/spotisync/blob/master/config.example.yaml)
+- [Changelog](https://github.com/bulletinmybeard/spotisync/blob/master/CHANGELOG.md)
 
 ## License
 
-MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see the [LICENSE](https://github.com/bulletinmybeard/spotisync/blob/master/LICENSE) file for details.
